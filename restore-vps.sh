@@ -46,30 +46,36 @@ function main {
 		echo -e '=========================seq '$i' start========================='
 		local MAIN_IP=$(echo $json | jq -r '[.[]]['$i'].main_ip')
 		echo -e "1. checking vps "$MAIN_IP
-		ping -c 30 $MAIN_IP > temp.txt 2>&1
-		grep "$CHECK_PING" temp.txt
-		if [ $? != 0 ]
+		local POWER_STATUS=$(echo $json | jq -r '[.[]]['$i'].power_status')
+		if [ $POWER_STATUS != 'running' ]
 		then
-			echo -e "2. this vps is alive, nothing happened"
+			echo -e "2. this vps is not power on, skipped"
 		else
-			echo -e "2. this vps is dead, process start"
-			local VPSID=$(echo $json | jq -r '[.[]]['$i'].SUBID')
-			local REGION_ID=$(echo $json | jq -r '[.[]]['$i'].DCID')
-			local VPS_LOCATION=$(echo $json | jq -r '[.[]]['$i'].location')
-			local VPSPLANID=$(echo $json | jq -r '[.[]]['$i'].VPSPLANID')
-			local VPS_LABEL=$(echo $json | jq -r '[.[]]['$i'].label')
-			destroyVPS $API_KEY $VPSID
-			SNAPSHPT_ID=$(echo $(get_snapshot_id $VPS_LABEL))
-			createVPS $API_KEY $REGION_ID $VPSPLANID $SNAPSHOT_ID $VPS_LABEL
-			if [ $NOTIFICATION = 1 ]
+			ping -c 30 $MAIN_IP > temp.txt 2>&1
+			grep "$CHECK_PING" temp.txt
+			if [ $? != 0 ]
 			then
-				local count=$(sed -n '1p' count.txt )
-				let count=$count+1
-				sed $SED_OPT "1s/^.*$/${count}/" count.txt
-				text="服务器下线啦！"
-				desp="您在${VPS_LOCATION}的服务器IP:${MAIN_IP}无法连接已被删除并已新建服务器。"
-				notification $text $desp
-			fi
+				echo -e "2. this vps is alive, nothing happened"
+			else
+				echo -e "2. this vps is dead, process start"
+				local VPSID=$(echo $json | jq -r '[.[]]['$i'].SUBID')
+				local REGION_ID=$(echo $json | jq -r '[.[]]['$i'].DCID')
+				local VPS_LOCATION=$(echo $json | jq -r '[.[]]['$i'].location')
+				local VPSPLANID=$(echo $json | jq -r '[.[]]['$i'].VPSPLANID')
+				local VPS_LABEL=$(echo $json | jq -r '[.[]]['$i'].label')
+				destroyVPS $API_KEY $VPSID
+				SNAPSHPT_ID=$(echo $(get_snapshot_id $VPS_LABEL))
+				createVPS $API_KEY $REGION_ID $VPSPLANID $SNAPSHOT_ID $VPS_LABEL
+				if [ $NOTIFICATION = 1 ]
+				then
+					local count=$(sed -n '1p' count.txt )
+					let count=$count+1
+					sed $SED_OPT "1s/^.*$/${count}/" count.txt
+					text="服务器下线啦！"
+					desp="您在${VPS_LOCATION}的服务器IP:${MAIN_IP}无法连接已被删除并已新建服务器。"
+					notification $text $desp
+				fi
+			fi	
 		fi
 		rm -rf temp.txt 
 	done
