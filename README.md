@@ -29,14 +29,22 @@ chmod +x restore-vps.sh
 ./restore-vps.sh main
 ```
 
-可
+可添加定时任务每10分钟检测一次
+
+
+运行`crontab -e`后添加下面一行：
 ```
+*/10 * * * * /YOUR_PATH/restore-vps.sh main
 ```
+如果不想10分钟一次请自行搜索crontab用法
 
 
-**支持server酱提醒，如不需要请勿打开**
+**支持server酱微信提醒，如不需要请勿打开**
+
+https://sc.ftqq.com
 
 
+修改以下两个参数
 ```
 #server酱开关，0为关闭，1为开启
 NOTIFICATION=0
@@ -44,3 +52,12 @@ NOTIFICATION=0
 SERVERCHAN_KEY='YOUR_SERVERCHAN_API'
 ```
   
+
+还可添加每日报告及每周报告任务
+
+
+运行`crontab -e`后添加下面两行：
+```
+30 22 * * * /YOUR_PATH/restore-vps.sh daily
+31 22 * * 7 /YOUR_PATH/restore-vps.sh weekly
+```
