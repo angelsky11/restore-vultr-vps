@@ -14,7 +14,10 @@ wget http://stedolan.github.io/jq/download/linux64/jq -O /usr/local/bin/jq
 chmod +x /usr/local/bin/jq
 ```
 
-**需要修改为自己的Vultr API_KEY**
+
+
+
+需要修改为自己的Vultr API_KEY
 
 
 ```
