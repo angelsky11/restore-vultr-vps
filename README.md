@@ -1,5 +1,5 @@
-# 
-自动检测vps连通性，如果不通，则删除当前vps，并且根据label查找有相同description的snapshot，并根据原vps参数从查找到的snapshot中恢复新建vps。
+# 说明
+脚本需在墙内机器运行，自动检测vps连通性，如果不通，则删除当前vps，并且根据label查找有相同description的snapshot，并根据原vps参数从查找到的snapshot中恢复新建vps。
 
 要求每个vps的label唯一并且有对应的同description的snapshot，且每个snapshot的description唯一。
 
@@ -44,7 +44,7 @@ chmod +x restore-vps.sh
 如果不想10分钟一次请自行搜索crontab用法
 
 
-**支持server酱微信提醒，如不需要请勿打开**
+# server酱微信消息推送
 
 https://sc.ftqq.com
 
