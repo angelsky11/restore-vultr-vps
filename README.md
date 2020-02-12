@@ -22,6 +22,17 @@ chmod +x /usr/local/bin/jq
 API_KEY='YOUR_VULTR_API_KEY'
 ```
 
+运行
+
+```
+chmod +x restore-vps.sh
+./restore-vps.sh main
+```
+
+可
+```
+```
+
 
 **支持server酱提醒，如不需要请勿打开**
 
@@ -32,5 +43,4 @@ NOTIFICATION=0
 #server酱api
 SERVERCHAN_KEY='YOUR_SERVERCHAN_API'
 ```
-
-本脚本执行后    
+  
