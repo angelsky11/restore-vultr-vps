@@ -1,4 +1,4 @@
-# vultrvps
+# 
 自动检测vps连通性，如果不通，则删除当前vps，并且根据label查找有相同description的snapshot，并根据原vps参数从查找到的snapshot中恢复新建vps。
 
 要求每个vps的label唯一并且有对应的同description的snapshot，且每个snapshot的description唯一。
@@ -16,7 +16,7 @@ wget http://stedolan.github.io/jq/download/linux64/jq -O /usr/local/bin/jq
 chmod +x /usr/local/bin/jq
 ```
 
-
+# 使用方法
 
 
 需要修改为自己的Vultr API_KEY
