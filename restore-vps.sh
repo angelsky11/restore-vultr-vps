@@ -84,7 +84,7 @@ function main {
 #定义函数根据传入参数获取SNAPSHOTID
 function get_snapshot_id {
 	local snapshotjson=$(curl -H 'API-Key: '$API_KEY'' https://api.vultr.com/v1/snapshot/list -s)
-	local NUM_SNAPSHOT=
+	local NUM_SNAPSHOT=$(echo $snapshotjson | jq -r '.|length')
 	for (( i = 0 ; i < $NUM_SNAPSHOT ; i++ ))
 	do
 		local snapshodid=$(echo $snapshotjson | jq -r '[.[]]['$i'].SNAPSHOTID')
