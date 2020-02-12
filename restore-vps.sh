@@ -129,11 +129,11 @@ function notification {
 
 #定义函数发送每日报告通知
 function daily_check {
-	count1=$(sed -n '1p' count.txt )
+	local count1=$(sed -n '1p' count.txt )
 	text="每日报告"
 	desp="本日总共删除并新建${count1}个服务器"
 	notification $text $desp
-	count2=$(sed -n '2p' count.txt )
+	local count2=$(sed -n '2p' count.txt )
 	let count2=${count2}+${count1}
 	sed $SED_OPT "1s/^.*$/0/" count.txt
 	sed $SED_OPT "2s/^.*$/${count2}/" count.txt
@@ -141,12 +141,10 @@ function daily_check {
 
 #定义函数发送每周报告通知
 function weekly_check {
-	count1=$(sed -n '2p' count.txt )
+	local count1=$(sed -n '2p' count.txt )
 	text="每周报告"
 	desp="本周总共删除并新建${count1}个服务器"
 	notification $text $desp
-	count2=$(sed -n '3p' count.txt )
-	let count2=${count2}+${count1}
 	sed $SED_OPT "2s/^.*$/0/" count.txt
 }
 
