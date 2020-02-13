@@ -11,7 +11,7 @@ https://github.com/stedolan/jq
 
 
 安装jq
-```
+```bash
 wget http://stedolan.github.io/jq/download/linux64/jq -O /usr/local/bin/jq
 chmod +x /usr/local/bin/jq
 ```
@@ -22,14 +22,14 @@ chmod +x /usr/local/bin/jq
 需要修改为自己的Vultr API_KEY
 
 
-```
+```bash
 #vultr api
 API_KEY='YOUR_VULTR_API_KEY'
 ```
 
 运行
 
-```
+```bash
 chmod +x restore-vps.sh
 ./restore-vps.sh main
 ```
@@ -50,7 +50,7 @@ https://sc.ftqq.com
 
 
 修改以下两个参数
-```
+```bash
 #server酱开关，0为关闭，1为开启
 NOTIFICATION=0
 #server酱api
