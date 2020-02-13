@@ -73,7 +73,7 @@ function main {
 					sed $SED_OPT "1s/^.*$/${count}/" count.txt
 					text="服务器下线啦！"
 					desp="您在${VPS_LOCATION}的服务器IP:${MAIN_IP}无法连接已被删除并已新建服务器。"
-					notification $text $desp
+					notification "${text}" "${desp}"
 				fi
 			fi	
 		fi
@@ -131,7 +131,7 @@ function daily_check {
 	local count1=$(sed -n '1p' count.txt )
 	text="每日报告"
 	desp="本日总共删除并新建${count1}个服务器"
-	notification $text $desp
+	notification  "${text}" "${desp}"
 	local count2=$(sed -n '2p' count.txt )
 	let count2=${count2}+${count1}
 	sed $SED_OPT "1s/^.*$/0/" count.txt
@@ -143,7 +143,7 @@ function weekly_check {
 	local count1=$(sed -n '2p' count.txt )
 	text="每周报告"
 	desp="本周总共删除并新建${count1}个服务器"
-	notification $text $desp
+	notification  "${text}" "${desp}"
 	sed $SED_OPT "2s/^.*$/0/" count.txt
 }
 
