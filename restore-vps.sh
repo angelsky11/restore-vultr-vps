@@ -64,7 +64,7 @@ function main {
 				local VPSPLANID=$(echo $json | jq -r '[.[]]['$i'].VPSPLANID')
 				local VPS_LABEL=$(echo $json | jq -r '[.[]]['$i'].label')
 				destroyVPS $API_KEY $VPSID
-				SNAPSHPT_ID=$(echo $(get_snapshot_id $VPS_LABEL))
+				local SNAPSHOT_ID=$(echo $(get_snapshot_id $VPS_LABEL))
 				createVPS $API_KEY $REGION_ID $VPSPLANID $SNAPSHOT_ID $VPS_LABEL
 				if [ $NOTIFICATION = 1 ]
 				then
@@ -87,14 +87,13 @@ function get_snapshot_id {
 	local NUM_SNAPSHOT=$(echo $snapshotjson | jq -r '.|length')
 	for (( i = 0 ; i < $NUM_SNAPSHOT ; i++ ))
 	do
-		local snapshodid=$(echo $snapshotjson | jq -r '[.[]]['$i'].SNAPSHOTID')
+		local snapshotid=$(echo $snapshotjson | jq -r '[.[]]['$i'].SNAPSHOTID')
 		local description=$(echo $snapshotjson | jq -r '[.[]]['$i'].description')
 		if [ "$1" = "$description" ]
 		then
-			SNAPSHOT_ID=$snapshodid
+			echo $snapshotid
 		fi
 	done
-	echo $SNAPSHOT_ID
 }
 
 #定义函数根据VPSID删除vps
@@ -115,7 +114,7 @@ function createVPS {
 
 #定义函数发送serverChan通知
 function notification {
-	local json=$(curl -s https://sc.ftqq.com/$SERVERCHAN_KEY.send --data "text=$1" --data "desp=$2")
+	local json=$(curl -s https://sc.ftqq.com/$SERVERCHAN_KEY.send --data-urlencode "text=$1" --data-urlencode "desp=$2")
 	errno=$(echo $json | jq .errno)
 	errmsg=$(echo $json | jq .errmsg)
 	if [ $errno = 0 ]
