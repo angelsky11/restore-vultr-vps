@@ -1,5 +1,5 @@
 # 说明
-脚本需在墙内机器运行，自动检测vps连通性，如果不通，则删除当前vps，并且根据label查找有相同description的snapshot，并根据原vps参数从查找到的snapshot中恢复新建vps。
+脚本需在墙内机器运行，自动检测vps连通性，如果不通，则删除当前vps，并且根据label查找有相同description的snapshot，并根据原vps参数从查找到的snapshot中恢复新建vps，如果找不到对应的snapshot或者vps状态不是运行中则不做操作。
 
 要求每个vps的label唯一并且有对应的同description的snapshot，且每个snapshot的description唯一。
 
