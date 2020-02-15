@@ -18,6 +18,11 @@ chmod +x /usr/local/bin/jq
 
 # 使用方法
 
+下载脚本
+
+```
+wget https://raw.githubusercontent.com/angelsky11/restore-vultr-vps/master/restore-vps.sh
+```
 
 需要修改为自己的Vultr API_KEY
 
